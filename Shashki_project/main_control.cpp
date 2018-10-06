@@ -1,8 +1,10 @@
 // Описание всех функций в файле main_control.h
-#include "main_control.h"
 #include "pch.h"
+#include "main_control.h"
+#include "class.h"
 
-void proverka(vector <string> *m_pos, string coord, bool &error)
+
+void proverka(vector <string> *m_pos, string coord, bool & error)
 {
 	error = true;
 	for (int i = 0; i < m_pos->size(); i++)
@@ -109,34 +111,6 @@ void preobras(checker m[][SIZE], string s, bool & not_possible)
 		}
 	}
 }
-string checker::get_color()
-{
-	return color;
-}
-string checker::get_coord()
-{
-	return coord;
-}
-bool checker::get_damka()
-{
-	return damka;
-}
-void checker::set_coord(string s)
-{
-	coord = s;
-}
-void checker::set_color(string s)
-{
-	color = s;
-}
-void checker::set_damka(bool s)
-{
-	damka = s;
-}
-void checker::delete_checker()
-{
-	color = "";
-}
 bool possible(string coord, vector <string> *m_pos)
 {
 	for (int i = 0; i < m_pos->size(); i++)
@@ -154,7 +128,7 @@ void initialization(checker m[][SIZE])
 			str += char(i + 49);
 			m[i][j].set_coord(str);
 			m[i][j].set_color("");
-			m[i][j].set_damka(true);
+			m[i][j].set_damka(false);
 			if (i >= 0 && i <= 2 && (i + j) % 2 == 1)
 				m[i][j].set_color("black");
 			if (i >= 5 && i < SIZE && (i + j) % 2 == 1)
@@ -228,3 +202,12 @@ void draw_field(checker m[][SIZE], vector <string> *m_pos)
 		cout << '-';
 	cout << endl;
 };
+void poisk(checker m[][SIZE], string coord, int & a, int & b)
+{
+	for (int i = 0; i < SIZE; i++)
+		for (int j = 0; j < SIZE; j++)
+			if (m[i][j].get_coord() == coord)
+			{
+				a = i; b = j;
+			}
+}
