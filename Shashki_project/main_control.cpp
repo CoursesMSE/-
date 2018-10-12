@@ -29,14 +29,58 @@ void move_checker(string new_c, string old_c, checker m[][SIZE])
 				i_new = i;
 				j_new = j;
 			}
+	int v = 0, n_main = 0;
 	for (int i = 0; i < SIZE; i++)
 		for (int j = 0; j < SIZE; j++)
 			if (m[i][j].get_coord() == old_c)
-				if (m[i][j].get_damka)
 				{
-						
+					color = m[i][j].get_color();
+					for (int n = 1; n < SIZE; n++)
+					{
+						n_main = n;
+						if (i + n == i_new && j + n == j_new)
+						{
+							v = 1;
+							break;
+						}
+						if (i - n == i_new && j + n == j_new)
+						{
+							v = 2;
+							break;
+						}
+						if (i + n == i_new && j - n == j_new)
+						{
+							v = 3;
+							break;
+						}
+						if (i - n == i_new && j - n == j_new)
+						{
+							v = 4;
+							break;
+						}
+					}
+					switch (v)
+					{
+					case 1:
+						for (int n = 0; n < n_main; n++)
+							m[i + n][j + n].delete_checker();
+						break;
+					case 2:
+						for (int n = 0; n < n_main; n++)
+							m[i - n][j + n].delete_checker();
+						break;
+					case 3:
+						for (int n = 0; n < n_main; n++)
+							m[i + n][j - n].delete_checker();
+						break;
+					case 4:
+						for (int n = 0; n < n_main; n++)
+							m[i - n][j - n].delete_checker();
+						break;
+					}
+					m[i][j].set_color("");
 				}
-				else
+				/*else
 				{
 					color = m[i][j].get_color();
 					if (i + 2 == i_new && j + 2 == j_new)
@@ -48,7 +92,7 @@ void move_checker(string new_c, string old_c, checker m[][SIZE])
 					else if (i - 2 == i_new && j + 2 == j_new)
 						m[i - 1][j + 1].delete_checker();
 					m[i][j].set_color("");
-				}	
+				}	*/
 	for (int i = 0; i < SIZE; i++)
 		for (int j = 0; j < SIZE; j++)
 			if (m[i][j].get_coord() == new_c)
@@ -132,7 +176,7 @@ void initialization(checker m[][SIZE])
 			str += char(i + 49);
 			m[i][j].set_coord(str);
 			m[i][j].set_color("");
-			m[i][j].set_damka(true);
+			m[i][j].set_damka(false);
 			if (i >= 0 && i <= 2 && (i + j) % 2 == 1)
 				m[i][j].set_color("black");
 			if (i >= 5 && i < SIZE && (i + j) % 2 == 1)
