@@ -40,40 +40,44 @@ void possible_turns_damka(string coord, checker m[][SIZE], vector <string> *m_po
 				switch (vector)
 				{
 				case 1:
-					if (m[i + 1][j + 1].get_color() == "")
-					{
-						m_pos->push_back(m[i + 1][j + 1].get_coord());
-						new_coord += char(coord[0] + 1);
-						new_coord += char(coord[1] + 1);
-						possible_turns_damka(new_coord, m, m_pos, 1);
-					}
+					if (exist(m[i][j].get_coord(), 1, 1))
+						if (m[i + 1][j + 1].get_color() == "")
+						{
+							m_pos->push_back(m[i + 1][j + 1].get_coord());
+							new_coord += char(coord[0] + 1);
+							new_coord += char(coord[1] + 1);
+							possible_turns_damka(new_coord, m, m_pos, 1);
+						}
 					break;
 				case 2:
-					if (m[i + 1][j - 1].get_color() == "")
-					{
-						m_pos->push_back(m[i + 1][j - 1].get_coord());
-						new_coord += char(coord[0] - 1);
-						new_coord += char(coord[1] + 1);
-						possible_turns_damka(new_coord, m, m_pos, 2);
-					}
+					if (exist(m[i][j].get_coord(), 1, -1))
+						if (m[i + 1][j - 1].get_color() == "")
+						{
+							m_pos->push_back(m[i + 1][j - 1].get_coord());
+							new_coord += char(coord[0] - 1);
+							new_coord += char(coord[1] + 1);
+							possible_turns_damka(new_coord, m, m_pos, 2);
+						}
 					break;
 				case 3:
-					if (m[i - 1][j - 1].get_color() == "")
-					{
-						m_pos->push_back(m[i - 1][j - 1].get_coord());
-						new_coord += char(coord[0] - 1);
-						new_coord += char(coord[1] - 1);
-						possible_turns_damka(new_coord, m, m_pos, 3);
-					}
+					if (exist(m[i][j].get_coord(), -1, -1))
+						if (m[i - 1][j - 1].get_color() == "")
+						{
+							m_pos->push_back(m[i - 1][j - 1].get_coord());
+							new_coord += char(coord[0] - 1);
+							new_coord += char(coord[1] - 1);
+							possible_turns_damka(new_coord, m, m_pos, 3);
+						}
 					break;
 				case 4:
-					if (m[i - 1][j + 1].get_color() == "")
-					{
-						m_pos->push_back(m[i - 1][j + 1].get_coord());
-						new_coord = char(coord[0] + 1);
-						new_coord += char(coord[1] - 1);
-						possible_turns_damka(new_coord, m, m_pos, 4);
-					}
+					if (exist(m[i][j].get_coord(), -1, 1))
+						if (m[i - 1][j + 1].get_color() == "")
+						{
+							m_pos->push_back(m[i - 1][j + 1].get_coord());
+							new_coord = char(coord[0] + 1);
+							new_coord += char(coord[1] - 1);
+							possible_turns_damka(new_coord, m, m_pos, 4);
+						}
 					break;
 				case 0:
 					new_coord = coord;
