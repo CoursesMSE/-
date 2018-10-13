@@ -19,7 +19,7 @@ string opr_color(string coord, checker m[][SIZE])
 				return m[i][j].get_color();
 	return "";
 }
-void move_checker(string new_c, string old_c, checker m[][SIZE])
+void move_checker(string new_c, string old_c, checker m[][SIZE], vector <string> *player_turn, int k)
 {
 	string color; int i_new, j_new;
 	for (int i = 0; i < SIZE; i++)
@@ -62,37 +62,24 @@ void move_checker(string new_c, string old_c, checker m[][SIZE])
 					switch (v)
 					{
 					case 1:
-						for (int n = 0; n < n_main; n++)
+						for (int n = 1; n < n_main; n++)
 							m[i + n][j + n].delete_checker();
 						break;
 					case 2:
-						for (int n = 0; n < n_main; n++)
+						for (int n = 1; n < n_main; n++)
 							m[i - n][j + n].delete_checker();
 						break;
 					case 3:
-						for (int n = 0; n < n_main; n++)
+						for (int n = 1; n < n_main; n++)
 							m[i + n][j - n].delete_checker();
 						break;
 					case 4:
-						for (int n = 0; n < n_main; n++)
+						for (int n = 1; n < n_main; n++)
 							m[i - n][j - n].delete_checker();
 						break;
 					}
 					m[i][j].set_color("");
-				}
-				/*else
-				{
-					color = m[i][j].get_color();
-					if (i + 2 == i_new && j + 2 == j_new)
-						m[i + 1][j + 1].delete_checker();
-					else if (i + 2 == i_new && j - 2 == j_new)
-						m[i + 1][j - 1].delete_checker();
-					else if (i - 2 == i_new && j - 2 == j_new)
-						m[i - 1][j - 1].delete_checker();
-					else if (i - 2 == i_new && j + 2 == j_new)
-						m[i - 1][j + 1].delete_checker();
-					m[i][j].set_color("");
-				}	*/
+			};
 	for (int i = 0; i < SIZE; i++)
 		for (int j = 0; j < SIZE; j++)
 			if (m[i][j].get_coord() == new_c)
@@ -109,6 +96,17 @@ void move_checker(string new_c, string old_c, checker m[][SIZE])
 				if ((new_c[1] == '1' && color == "white") || (new_c[1] == '8' && color == "black"))
 					m[i][j].set_damka(true);
 			}
+	if (k != 1)
+	{
+		player_turn->erase(player_turn->begin());
+		player_turn->pop_back();
+	}
+	cout << player_turn->capacity();
+	if (player_turn->capacity() - k + 1 != 1)
+	{
+		move_checker((*player_turn)[1], (*player_turn)[0], m, player_turn, ++k);
+		cout << "hui";
+	}
 }
 void preobras(checker m[][SIZE], string s, bool & not_possible)
 {

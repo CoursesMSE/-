@@ -212,7 +212,7 @@ void possible_turns_damka_eat(string coord, checker m[][SIZE], vector <string> *
 				}
 			}
 }
-void possible_turns_eat(string coord, checker m[][SIZE], vector <string> *m_pos, string color)
+void possible_turns_eat(string coord, checker m[][SIZE], vector <string> *m_pos, string color, bool v1, bool v2, bool v3, bool v4)
 {
 	for (int i = 0; i < SIZE; i++)
 		for (int j = 0; j < SIZE; j++)
@@ -220,56 +220,67 @@ void possible_turns_eat(string coord, checker m[][SIZE], vector <string> *m_pos,
 			{
 					if (color == "white")
 					{
-						if (exist(m[i][j].get_coord(), -2, -2))
+						if (exist(m[i][j].get_coord(), -2, -2) && v1)
 							if ((m[i - 1][j - 1].get_color() == "black") && (m[i - 2][j - 2].get_color() == ""))
 							{
 								m_pos->push_back(m[i - 2][j - 2].get_coord());
-								possible_turns_eat(m[i - 2][j - 2].get_coord(), m, m_pos, color);
+								v4 = false; v2 = v3 = v1 = true;
+								possible_turns_eat(m[i - 2][j - 2].get_coord(), m, m_pos, color, v1, v2, v3, v4);
+								
 							}
-						if (exist(m[i][j].get_coord(), -2, 2))
+						if (exist(m[i][j].get_coord(), -2, 2) && v2)
 							if ((m[i - 1][j + 1].get_color() == "black") && (m[i - 2][j + 2].get_color() == ""))
 							{
 								m_pos->push_back(m[i - 2][j + 2].get_coord());
-								possible_turns_eat(m[i - 2][j + 2].get_coord(), m, m_pos, color);
+								v3 = false; v1 = v2 = v4 = true;
+								possible_turns_eat(m[i - 2][j + 2].get_coord(), m, m_pos, color, v1, v2, v3, v4);
+								
 							}
-						if (exist(m[i][j].get_coord(), 2, -2))
+						if (exist(m[i][j].get_coord(), 2, -2) && v3)
 							if ((m[i + 1][j - 1].get_color() == "black") && (m[i + 2][j - 2].get_color() == ""))
 							{
 								m_pos->push_back(m[i + 2][j - 2].get_coord());
-								possible_turns_eat(m[i + 2][j - 2].get_coord(), m, m_pos, color);
+								v2 = false; v1 = v3 = v4 = true;
+								possible_turns_eat(m[i + 2][j - 2].get_coord(), m, m_pos, color, v1, v2, v3, v4);
 							}
-						if (exist(m[i][j].get_coord(), 2, 2))
+						if (exist(m[i][j].get_coord(), 2, 2) && v4)
 							if ((m[i + 1][j + 1].get_color() == "black") && (m[i + 2][j + 2].get_color() == ""))
 							{
 								m_pos->push_back(m[i + 2][j + 2].get_coord());
-								possible_turns_eat(m[i + 2][j + 2].get_coord(), m, m_pos, color);
+								v1 = false; v2 = v3 = v4 = true;
+								possible_turns_eat(m[i + 2][j + 2].get_coord(), m, m_pos, color, v1, v2, v3, v4);
 							}
 					}
 					else if (color == "black")
 					{
-						if (exist(m[i][j].get_coord(), -2, -2))
+						if (exist(m[i][j].get_coord(), -2, -2) && v1)
 							if ((m[i - 1][j - 1].get_color() == "white") && (m[i - 2][j - 2].get_color() == ""))
 							{
 								m_pos->push_back(m[i - 2][j - 2].get_coord());
-								possible_turns_eat(m[i - 2][j - 2].get_coord(), m, m_pos, color);
+								v4 = false; v2 = v3 = v1 = true;
+								possible_turns_eat(m[i - 2][j - 2].get_coord(), m, m_pos, color, v1, v2, v3, v4);
+
 							}
-						if (exist(m[i][j].get_coord(), -2, 2))
+						if (exist(m[i][j].get_coord(), -2, 2) && v2)
 							if ((m[i - 1][j + 1].get_color() == "white") && (m[i - 2][j + 2].get_color() == ""))
 							{
 								m_pos->push_back(m[i - 2][j + 2].get_coord());
-								possible_turns_eat(m[i - 2][j + 2].get_coord(), m, m_pos, color);
+								v3 = false; v1 = v2 = v4 = true;
+								possible_turns_eat(m[i - 2][j + 2].get_coord(), m, m_pos, color, v1, v2, v3, v4);
 							}
-						if (exist(m[i][j].get_coord(), 2, -2))
+						if (exist(m[i][j].get_coord(), 2, -2) && v3)
 							if ((m[i + 1][j - 1].get_color() == "white") && (m[i + 2][j - 2].get_color() == ""))
 							{
 								m_pos->push_back(m[i + 2][j - 2].get_coord());
-								possible_turns_eat(m[i + 2][j - 2].get_coord(), m, m_pos, color);
+								v2 = false; v1 = v3 = v4 = true;
+								possible_turns_eat(m[i + 2][j - 2].get_coord(), m, m_pos, color, v1, v2, v3, v4);
 							}
-						if (exist(m[i][j].get_coord(), 2, 2))
+						if (exist(m[i][j].get_coord(), 2, 2) && v4)
 							if ((m[i + 1][j + 1].get_color() == "white") && (m[i + 2][j + 2].get_color() == ""))
 							{
 								m_pos->push_back(m[i + 2][j + 2].get_coord());
-								possible_turns_eat(m[i + 2][j + 2].get_coord(), m, m_pos, color);
+								v1 = false; v2 = v3 = v4 = true;
+								possible_turns_eat(m[i + 2][j + 2].get_coord(), m, m_pos, color, v1, v2, v3, v4);
 							}
 					}
 			}

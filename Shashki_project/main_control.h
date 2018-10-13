@@ -6,7 +6,7 @@
 #include "pch.h"
 #include "class.h"
 
-void move_checker(string new_c, string old_c, checker m[][SIZE]);
+void move_checker(string new_c, string old_c, checker m[][SIZE], vector <string> *player_turn, int k);
 void preobras(checker m[][SIZE], string s, bool & not_possible);
 void draw_field(checker m[][SIZE], vector <string> *m_pos);
 void initialization(checker m[][SIZE]);
