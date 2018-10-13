@@ -101,12 +101,8 @@ void move_checker(string new_c, string old_c, checker m[][SIZE], vector <string>
 		player_turn->erase(player_turn->begin());
 		player_turn->pop_back();
 	}
-	cout << player_turn->capacity();
-	if (player_turn->capacity() - k + 1 != 1)
-	{
+	if (player_turn->capacity() - k + 1 != 1) 
 		move_checker((*player_turn)[1], (*player_turn)[0], m, player_turn, ++k);
-		cout << "hui";
-	}
 }
 void preobras(checker m[][SIZE], string s, bool & not_possible)
 {
@@ -174,7 +170,7 @@ void initialization(checker m[][SIZE])
 			str += char(i + 49);
 			m[i][j].set_coord(str);
 			m[i][j].set_color("");
-			m[i][j].set_damka(false);
+			m[i][j].set_damka(true);
 			if (i >= 0 && i <= 2 && (i + j) % 2 == 1)
 				m[i][j].set_color("black");
 			if (i >= 5 && i < SIZE && (i + j) % 2 == 1)
